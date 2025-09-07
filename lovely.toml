@@ -27,7 +27,7 @@ if card.base then
         suit.base_card = card
         rank.is_rank = true
         suit.is_suit = true
-    endr
+    end
     SMODS.create_mod_badges(rank, badges)
     SMODS.create_mod_badges(suit, badges)
 end

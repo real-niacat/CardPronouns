@@ -5,7 +5,7 @@
 	"description": "Adds pronouns to all cards.",
 	"prefix": "caprns",
 	"main_file": "main.lua",
-	"priority": 0, 
+	"priority": -99999999, 
 	"badge_colour": "ffffff",
 	"version": "1.0", 
 	"dependencies": [ 

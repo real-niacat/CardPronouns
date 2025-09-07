@@ -9,21 +9,16 @@ One based on their enhancement, suit, and rank
 ## For developers:
 If you'd like to change the pronouns of a card, for any reason
 
-Simply set the center's `pronouns` field to a table containing the text, colour and text colour
+Simply set the center's `pronouns` field to the key of a Pronoun
 
-Example:
+You can check if a card is masculine, feminine or neutral with the CardPronouns.has function
 
-```
-SMODS.Joker {
-    ...
-    pronouns = {
-        text = "She/They",
-        colour = G.C.RED,
-        text_colour = G.C.WHITE
-    }
-}
+e.g. CardPronouns.has("feminine", "j_joker") will 
 
-```
+You may also initialize new pronoun sets & pronoun classifications via CardPronouns.Pronoun and CardPronouns.PronounClassification
+
+Both require keys in their initialization, pronoun sets require a pronoun_table too
+
 
 # Inspiration
 This mod was heavily inspired by a [similar mod](https://geode-sdk.org/mods/n.level-pronouns) for Geometry Dash

@@ -1,0 +1,13 @@
+{
+	"id": "cardpronouns",
+	"name": "Card Pronouns", 
+	"author": ["Lily Felli"], 
+	"description": "Adds pronouns to all cards.",
+	"prefix": "caprns",
+	"main_file": "main.lua",
+	"priority": 0, 
+	"badge_colour": "ffffff",
+	"version": "1.0", 
+	"dependencies": [ 
+	]
+}

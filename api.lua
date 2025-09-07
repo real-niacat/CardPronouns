@@ -132,7 +132,7 @@ function CardPronouns.find_all(set, strict)
 end
 
 function CardPronouns.contains(set, cards)
-    for _, card in pairs(cardarea.cards) do
+    for _, card in pairs(cards) do
         if CardPronouns.has(set, card) then
             return true
         end

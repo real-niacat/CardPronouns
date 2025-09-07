@@ -18,7 +18,7 @@ end
 payload = '''
 --lily your patch went through
 local cent = card.config.center
-cent.base_card = card
+if cent then cent.base_card = card end
 SMODS.create_mod_badges(cent, badges)
 if card.base then
     local rank, suit = SMODS.Ranks[card.base.value], SMODS.Suits[card.base.suit]

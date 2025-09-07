@@ -22,11 +22,12 @@ function SMODS.create_mod_badges(obj, badges)
 
 
     
-    if obj.base_card and obj.base_card.base and obj.base_card.suit and obj.base_card.value then
+    if obj.base_card and obj.base_card.base and obj.base_card.base.id then
         local en = next(SMODS.get_enhancements(obj.base_card))
         local suit = SMODS.Suits[obj.base_card.base.suit]
         local rank = SMODS.Ranks[obj.base_card.base.value]
-        badge = CardPronouns.badge_by_string(suit.key .. rank.key .. (en or ""))
+        local res = suit.key .. rank.key .. (en or "")
+        badge = CardPronouns.badge_by_string(res)
     end
 
     badges[#badges + 1] = {

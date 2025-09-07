@@ -50,14 +50,34 @@ function CardPronouns.badge_by_string(str)
     return allowed[math.random(1, #allowed)]
 end
 
+function CardPronouns.badge_by_obj(obj)
+    local badge = CardPronouns.badge_by_string(obj.key)
+    if obj.base_card and obj.base_card.base and obj.base_card.base.id then
+        local en = next(SMODS.get_enhancements(obj.base_card))
+        local suit = SMODS.Suits[obj.base_card.base.suit]
+        local rank = SMODS.Ranks[obj.base_card.base.value]
+        local res = suit.key .. rank.key .. (en or "")
+        badge = CardPronouns.badge_by_string(res)
+    end
+
+    if obj.base and obj.base.id then
+        local en = next(SMODS.get_enhancements(obj))
+        local suit = SMODS.Suits[obj.base.suit]
+        local rank = SMODS.Ranks[obj.base.value]
+        local res = suit.key .. rank.key .. (en or "")
+        badge = CardPronouns.badge_by_string(res)
+    end
+    return badge
+end
+
 function CardPronouns.Pronoun(tab)
     if tab.pronoun_table and tab.key then
         CardPronouns.badge_types[tab.key] = tab
 
         if tab.classification then
             for i, pronoun in pairs(tab.pronoun_table) do
-                local nexti = #CardPronouns.classifications[tab.classifications] + 1
-                CardPronouns.classifications[tab.classifications][nexti] = pronoun
+                local nexti = #CardPronouns.classifications[tab.classification] + 1
+                CardPronouns.classifications[tab.classification][nexti] = pronoun
             end
         end
 
@@ -82,14 +102,14 @@ function CardPronouns.PronounClassification(tab)
     end
 end
 
-function CardPronouns.has(set, key)
-    local cen = G.P_CENTERS[key]
-    return CardPronouns.overlap(CardPronouns.badge_types[cen.pronouns].pronoun_table,
-        (CardPronouns.classifications[set] and CardPronouns.classifications[set].pronouns) or {})
+function CardPronouns.has(set, card)
+    local check = CardPronouns.badge_by_obj(card).pronoun_table
+    local match = (CardPronouns.classifications[set] and CardPronouns.classifications[set].pronouns) or {}
+    return CardPronouns.overlap(check, match)
 end
 
-function CardPronouns.is(prnskey, cardkey)
-    return prnskey == G.P_CENTERS[cardkey].pronouns
+function CardPronouns.is(prnskey, card)
+    return prnskey == CardPronouns.badge_by_obj(card)
 end
 
 function CardPronouns.find_all(set, strict)
@@ -98,11 +118,11 @@ function CardPronouns.find_all(set, strict)
         for __,card in pairs(cardarea.cards) do
             
             if strict then
-                if CardPronouns.is(set, card.config.center.key) then
+                if CardPronouns.is(set, card) then
                     found[#found+1] = card
                 end
             else
-                if CardPronouns.has(set, card.config.center.key) then
+                if CardPronouns.has(set, card) then
                     found[#found+1] = card
                 end
             end

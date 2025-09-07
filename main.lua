@@ -89,8 +89,12 @@ end
 
 function CardPronouns.has(set, key)
     local cen = G.P_CENTERS[key]
-    return CardPronouns.overlap(cen.pronouns.pronoun_table,
+    return CardPronouns.overlap(CardPronouns.badge_types[cen.pronouns].pronoun_table,
         (CardPronouns.classifications[set] and CardPronouns.classifications[set].pronouns) or {})
+end
+
+function CardPronouns.is(prnskey, cardkey)
+    return prnskey == G.P_CENTERS[cardkey].pronouns
 end
 
 local fakemodbadge = SMODS.create_mod_badges

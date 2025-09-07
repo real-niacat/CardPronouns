@@ -1,0 +1,34 @@
+[manifest]
+version = "1.0.0"
+dump_lua = false
+priority = 0
+
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+match_indent = true
+position = 'at'
+pattern = '''
+SMODS.create_mod_badges(card.config.center, badges)
+if card.base then
+    SMODS.create_mod_badges(SMODS.Ranks[card.base.value], badges)
+    SMODS.create_mod_badges(SMODS.Suits[card.base.suit], badges)
+end
+'''
+payload = '''
+--lily your patch went through
+local cent = card.config.center
+cent.base_card = card
+SMODS.create_mod_badges(cent, badges)
+if card.base then
+    local rank, suit = SMODS.Ranks[card.base.value], SMODS.Suits[card.base.suit]
+    if rank and suit then
+        rank.base_card = card
+        suit.base_card = card
+        rank.is_rank = true
+        suit.is_suit = true
+    endr
+    SMODS.create_mod_badges(rank, badges)
+    SMODS.create_mod_badges(suit, badges)
+end
+'''

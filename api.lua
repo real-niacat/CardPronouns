@@ -91,3 +91,24 @@ end
 function CardPronouns.is(prnskey, cardkey)
     return prnskey == G.P_CENTERS[cardkey].pronouns
 end
+
+function CardPronouns.find_all(set, strict)
+    local found = {}
+    for _,cardarea in pairs(G.I.CARDAREA) do
+        for __,card in pairs(cardarea.cards) do
+            
+            if strict then
+                if CardPronouns.is(set, card.config.center.key) then
+                    found[#found+1] = card
+                end
+            else
+                if CardPronouns.has(set, card.config.center.key) then
+                    found[#found+1] = card
+                end
+            end
+
+        end
+    end
+
+    return found
+end

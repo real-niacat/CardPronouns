@@ -1,9 +1,16 @@
 local fakemodbadge = SMODS.create_mod_badges
+last_hovered_card = nil
 function SMODS.create_mod_badges(obj, badges)
     fakemodbadge(obj, badges)
     if not obj then
         return
     end
+    if obj.is_rank or obj.is_suit then
+        return
+    end
+
+    -- print(obj.key)
+    -- last_hovered_card = obj
 
     local badge = nil
 
@@ -11,6 +18,15 @@ function SMODS.create_mod_badges(obj, badges)
 
     if G.P_CENTERS[obj.key] and G.P_CENTERS[obj.key].pronouns then
         badge = CardPronouns.badge_types[G.P_CENTERS[obj.key].pronouns]
+    end
+
+
+    
+    if obj.base_card and obj.base_card.base and obj.base_card.suit and obj.base_card.value then
+        local en = next(SMODS.get_enhancements(obj.base_card))
+        local suit = SMODS.Suits[obj.base_card.base.suit]
+        local rank = SMODS.Ranks[obj.base_card.base.value]
+        badge = CardPronouns.badge_by_string(suit.key .. rank.key .. (en or ""))
     end
 
     badges[#badges + 1] = {

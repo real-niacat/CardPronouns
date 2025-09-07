@@ -1,5 +1,5 @@
 loc_colour()
-CardPronouns = {}
+CardPronouns = SMODS.current_mod
 CardPronouns.badge_types = {}
 CardPronouns.classifications = {}
 

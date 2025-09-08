@@ -76,8 +76,8 @@ function CardPronouns.Pronoun(tab)
 
         if tab.classification then
             for i, pronoun in pairs(tab.pronoun_table) do
-                local nexti = #CardPronouns.classifications[tab.classification] + 1
-                CardPronouns.classifications[tab.classification][nexti] = pronoun
+                local nexti = #CardPronouns.classifications[tab.classification].pronouns + 1
+                CardPronouns.classifications[tab.classification].pronouns[nexti] = pronoun
             end
         end
 

@@ -51,7 +51,7 @@ function CardPronouns.badge_by_string(str)
 end
 
 function CardPronouns.badge_by_obj(obj)
-    local badge = CardPronouns.badge_by_string(obj.key)
+    local badge = CardPronouns.badge_by_string(obj.key or obj.config.center.key)
     if obj.base_card and obj.base_card.base and obj.base_card.base.id then
         local en = next(SMODS.get_enhancements(obj.base_card))
         local suit = SMODS.Suits[obj.base_card.base.suit]

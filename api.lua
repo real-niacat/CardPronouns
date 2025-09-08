@@ -103,13 +103,13 @@ function CardPronouns.PronounClassification(tab)
 end
 
 function CardPronouns.has(set, card)
-    local check = CardPronouns.badge_by_obj(card).pronoun_table
+    local check = CardPronouns.badge_types[CardPronouns.get(card)].pronoun_table
     local match = (CardPronouns.classifications[set] and CardPronouns.classifications[set].pronouns) or {}
     return CardPronouns.overlap(check, match)
 end
 
 function CardPronouns.is(prnskey, card, strict)
-    local pronouns = CardPronouns.badge_by_obj(card).key
+    local pronouns = CardPronouns.get(card)
     return (prnskey == pronouns) or (not strict and pronouns == "any_all")
 end
 
@@ -130,4 +130,21 @@ function CardPronouns.find_all(set, strict)
     end
 
     return found
+end
+
+function CardPronouns.get(card)
+    local pronouns = CardPronouns.badge_by_obj(card).key
+    if card.config and card.config.center and card.config.center.get_pronouns then
+        pronouns = card.config.center:get_pronouns(card)
+    end
+
+    if card.get_pronouns and card.base_card then
+        pronouns = card:get_pronouns(card.base_card)
+    end
+    return pronouns
+end
+
+function CardPronouns.get_badge(card)
+    -- functionally identical to get but it also gets the badge
+    return CardPronouns.badge_types[CardPronouns.get(card)]
 end

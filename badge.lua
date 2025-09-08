@@ -15,9 +15,9 @@ function SMODS.create_mod_badges(obj, badges)
     local badge = nil
 
     -- badge = CardPronouns.badge_by_string(obj.key)
-    badge = CardPronouns.badge_by_obj(obj)
+    badge = CardPronouns.get_badge(obj)
 
-    if G.P_CENTERS[obj.key] and G.P_CENTERS[obj.key].pronouns and not (obj.base_card and obj.base_card.base and obj.base_card.base.id) then
+    if G.P_CENTERS[obj.key] and G.P_CENTERS[obj.key].pronouns and not (obj.base_card and obj.base_card.base and obj.base_card.base.id) and not obj.get_pronouns then
         badge = CardPronouns.badge_types[G.P_CENTERS[obj.key].pronouns]
     end
 

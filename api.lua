@@ -108,8 +108,9 @@ function CardPronouns.has(set, card)
     return CardPronouns.overlap(check, match)
 end
 
-function CardPronouns.is(prnskey, card)
-    return prnskey == CardPronouns.badge_by_obj(card).key
+function CardPronouns.is(prnskey, card, strict)
+    local pronouns = CardPronouns.badge_by_obj(card).key
+    return (prnskey == pronouns) or (not strict and pronouns == "any_all")
 end
 
 function CardPronouns.find_all(set, strict)
@@ -117,7 +118,7 @@ function CardPronouns.find_all(set, strict)
     for _, cardarea in pairs(G.I.CARDAREA) do
         for __, card in pairs(cardarea.cards) do
             if strict then
-                if CardPronouns.is(set, card) then
+                if CardPronouns.is(set, card, strict) then
                     found[#found + 1] = card
                 end
             else

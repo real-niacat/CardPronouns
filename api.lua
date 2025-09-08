@@ -109,7 +109,7 @@ function CardPronouns.has(set, card)
 end
 
 function CardPronouns.is(prnskey, card)
-    return prnskey == CardPronouns.badge_by_obj(card)
+    return prnskey == CardPronouns.badge_by_obj(card).key
 end
 
 function CardPronouns.find_all(set, strict)

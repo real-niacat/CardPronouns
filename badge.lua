@@ -14,12 +14,21 @@ function SMODS.create_mod_badges(obj, badges)
 
     local badge = nil
 
-    -- badge = CardPronouns.badge_by_string(obj.key)
-    badge = CardPronouns.get_badge(obj)
+    if obj.mod ~= G.P_CENTERS[obj.key].original_mod then
+        return
+    end
 
-    if G.P_CENTERS[obj.key] and G.P_CENTERS[obj.key].pronouns and not (obj.base_card and obj.base_card.base and obj.base_card.base.id) and not obj.get_pronouns then
+    -- badge = CardPronouns.badge_by_string(obj.key)
+
+    if G.P_CENTERS[obj.key] and G.P_CENTERS[obj.key].pronouns and not (obj.base_card and obj.base_card.base and obj.base_card.base.id) then
         badge = CardPronouns.badge_types[G.P_CENTERS[obj.key].pronouns]
     end
+
+    if obj.get_pronouns then
+        badge = CardPronouns.get_badge(obj)
+    end
+    badge = badge or CardPronouns.get_badge(obj)
+    
 
 
     

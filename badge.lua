@@ -14,7 +14,7 @@ function SMODS.create_mod_badges(obj, badges)
 
     local badge = nil
 
-    if obj.mod ~= G.P_CENTERS[obj.key].original_mod then
+    if (obj.mod ~= G.P_CENTERS[obj.key].original_mod) and obj.mod and G.P_CENTERS[obj.key].original_mod then
         return
     end
 

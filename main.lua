@@ -17,6 +17,7 @@ function SMODS.injectItems(...)
     load_pronouns()
 end
 
+assert(SMODS.load_file("util.lua"))()
 assert(SMODS.load_file("api.lua"))()
 assert(SMODS.load_file("badge.lua"))()
 assert(SMODS.load_file("pronouns.lua"))()

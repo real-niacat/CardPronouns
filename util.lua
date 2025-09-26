@@ -52,21 +52,36 @@ end
 
 function CardPronouns.badge_by_obj(obj)
     local badge = CardPronouns.badge_by_string(obj.key or (obj.center and obj.config.center.key))
+
+    local en = nil
+    local suit = nil
+    local rank = nil
     if obj.base_card and obj.base_card.base and obj.base_card.base.id then
-        local en = next(SMODS.get_enhancements(obj.base_card))
-        local suit = SMODS.Suits[obj.base_card.base.suit]
-        local rank = SMODS.Ranks[obj.base_card.base.value]
-        local res = suit.key .. rank.key .. (en or "")
-        badge = CardPronouns.badge_by_string(res)
+        en = next(SMODS.get_enhancements(obj.base_card))
+        suit = SMODS.Suits[obj.base_card.base.suit]
+        rank = SMODS.Ranks[obj.base_card.base.value]
     end
 
     if obj.base and obj.base.id then
-        local en = next(SMODS.get_enhancements(obj))
-        local suit = SMODS.Suits[obj.base.suit]
-        local rank = SMODS.Ranks[obj.base.value]
+        en = next(SMODS.get_enhancements(obj))
+        suit = SMODS.Suits[obj.base.suit]
+        rank = SMODS.Ranks[obj.base.value]
+    end
+
+    if en or suit or rank then
         local res = suit.key .. rank.key .. (en or "")
         badge = CardPronouns.badge_by_string(res)
+
+        for _,override in pairs(CardPronouns.PlayingCardOverrides) do
+            local suit_pass = override.suit and (override.suit == suit.key) or (override.strict)
+            local rank_pass = override.rank and (override.rank == rank.key) or (override.strict)
+            local en_pass = override.enhancement and (override.enhancement == en) or (override.strict)
+            if override.strict and (suit_pass and rank_pass and en_pass) or not override.strict and (suit_pass or rank_pass or en_pass) then
+                badge = CardPronouns.badge_types[override.pronoun]
+            end
+        end
     end
+    
     return badge
 end
 

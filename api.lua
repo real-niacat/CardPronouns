@@ -32,3 +32,18 @@ function CardPronouns.PronounClassification(tab)
     end
 end
 
+function CardPronouns.PlayingCardOverride(tab)
+    if not tab.key then
+        error("Missing key in PlayingCardOverride.")
+    end
+
+    if not tab.pronoun then
+        error("Missing pronoun in PlayingCardOverride. Key: " .. tab.key)
+    end
+
+    if (not tab.suit) and (not tab.rank) and (not tab.enhancement) then
+        error("Missing condition in PlayingCardOverride. Key: " .. tab.key .. "\nUse a 'suit', 'rank' or 'enhancement' value") 
+    end
+
+    CardPronouns.PlayingCardOverrides[tab.key] = tab
+end

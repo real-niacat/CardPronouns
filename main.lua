@@ -2,6 +2,7 @@ loc_colour()
 CardPronouns = SMODS.current_mod
 CardPronouns.badge_types = {}
 CardPronouns.classifications = {}
+CardPronouns.PlayingCardOverrides = {}
 
 local function load_pronouns()
     for key, cent in pairs(G.P_CENTERS) do

@@ -41,8 +41,8 @@ CardPronouns.Pronoun {
     key = "they_them"
 }
 CardPronouns.Pronoun {
-    colour = HEX("FF89E5"),
-    text_colour = G.C.WHITE,
+    colour = G.C.WHITE,
+    text_colour = G.C.BLACK,
     pronoun_table = { "Any", "All" },
     in_pool = function()
         return true

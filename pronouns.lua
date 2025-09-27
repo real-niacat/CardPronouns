@@ -23,6 +23,25 @@ CardPronouns.Pronoun {
     key = "she_her"
 }
 CardPronouns.Pronoun {
+    colour = HEX("#6832E3"),
+    text_colour = G.C.WHITE,
+    pronoun_table = { "She", "Him" },
+    in_pool = function()
+        return true
+    end,
+    key = "she_him"
+}
+
+CardPronouns.Pronoun {
+    colour = HEX("FFABFF"),
+    text_colour = G.C.WHITE,
+    pronoun_table = { "She", "It" },
+    in_pool = function()
+        return true
+    end,
+    key = "she_it"
+}
+CardPronouns.Pronoun {
     colour = HEX("61B5FA"),
     text_colour = G.C.WHITE,
     pronoun_table = { "He", "Him" },
@@ -58,6 +77,7 @@ CardPronouns.Pronoun {
     end,
     key = "it_its"
 }
+
 CardPronouns.Pronoun {
     colour = HEX("FFABFF"),
     text_colour = G.C.WHITE,
@@ -67,6 +87,7 @@ CardPronouns.Pronoun {
     end,
     key = "she_they"
 }
+
 CardPronouns.Pronoun {
     colour = HEX("96D0FF"),
     text_colour = G.C.WHITE,
@@ -75,4 +96,24 @@ CardPronouns.Pronoun {
         return true
     end,
     key = "he_they"
+}
+
+CardPronouns.Pronoun {
+    colour = HEX("#6832E3"),
+    text_colour = G.C.WHITE,
+    pronoun_table = { "He", "Her" },
+    in_pool = function()
+        return true
+    end,
+    key = "he_her"
+}
+
+CardPronouns.Pronoun {
+    colour = HEX("96D0FF"),
+    text_colour = G.C.WHITE,
+    pronoun_table = { "He", "It" },
+    in_pool = function()
+        return true
+    end,
+    key = "he_it"
 }

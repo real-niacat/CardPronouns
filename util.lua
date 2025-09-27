@@ -46,8 +46,9 @@ function CardPronouns.badge_by_string(str)
         n = (code * i)
     end
 
-    math.randomseed(n)
-    return allowed[math.random(1, #allowed)]
+    local randPronoun = pseudorandom_element(allowed, n + (G.GAME.pseudorandom.hashed_seed or 0)) --makes every card have a different gender every seed (basically every reincarnation theyll be different -Rosie)
+
+    return randPronoun
 end
 
 function CardPronouns.badge_by_obj(obj)

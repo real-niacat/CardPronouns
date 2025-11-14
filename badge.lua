@@ -19,7 +19,6 @@ function SMODS.create_mod_badges(obj, badges)
     end
 
     -- badge = CardPronouns.badge_by_string(obj.key)
-    print(obj)
     if obj.pronouns and not (obj.base_card and obj.base_card.base and obj.base_card.base.id) then
         badge = CardPronouns.badge_types[obj.pronouns]
     end

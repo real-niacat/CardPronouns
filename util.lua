@@ -73,11 +73,38 @@ function CardPronouns.badge_by_obj(obj)
         badge = CardPronouns.badge_by_string(res)
 
         for _,override in pairs(CardPronouns.PlayingCardOverrides) do
-            local suit_pass = override.suit and (override.suit == suit.key) or (override.strict)
-            local rank_pass = override.rank and (override.rank == rank.key) or (override.strict)
-            local en_pass = override.enhancement and (override.enhancement == en) or (override.strict)
-            if override.strict and (suit_pass and rank_pass and en_pass) or not override.strict and (suit_pass or rank_pass or en_pass) then
-                badge = CardPronouns.badge_types[override.pronoun]
+            if override.strict then
+                -- Cannot do, for example,
+                -- `suit_pass = override.suit and override.suit == suit.key or true`
+                -- because it will always return true
+                local suit_pass = true
+                if override.suit then
+                    suit_pass = override.suit == suit.key
+                end
+                local rank_pass = true
+                if override.rank then
+                    rank_pass = override.rank == rank.key
+                end
+                local en_pass = true
+                if override.enhancement then
+                    en_pass = override.enhancement == en
+                end
+
+                if suit_pass and rank_pass and en_pass then
+                    badge = CardPronouns.badge_types[override.pronoun]
+                    break
+                end
+            else
+                -- en == nil if playing card is just a normal playing card
+                -- thus we can't do a regular `override.enhancement == en`
+                local en_pass = false
+                if override.enhancement then
+                    en_pass = override.enhancement == en
+                end
+
+                if (override.suit == suit.key) or (override.rank == rank.key) or en_pass then
+                    badge = CardPronouns.badge_types[override.pronoun]
+                end
             end
         end
     end

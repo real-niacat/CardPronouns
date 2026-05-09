@@ -7,28 +7,10 @@ priority = 0
 [patches.pattern]
 target = 'functions/UI_definitions.lua'
 match_indent = true
-position = 'at'
+position = 'before'
 pattern = '''
-SMODS.create_mod_badges(card.config.center, badges)
-if card.base then
-    SMODS.create_mod_badges(SMODS.Ranks[card.base.value], badges)
-    SMODS.create_mod_badges(SMODS.Suits[card.base.suit], badges)
-end
+AUT.main.background_colour = AUT.main.background_colour or AUT.box_colours and AUT.box_colours[1] or nil
 '''
 payload = '''
---lily your patch went through
-local cent = card.config.center
-if cent then cent.base_card = card end
-SMODS.create_mod_badges(cent, badges)
-if card.base then
-    local rank, suit = SMODS.Ranks[card.base.value], SMODS.Suits[card.base.suit]
-    if rank and suit then
-        rank.base_card = card
-        suit.base_card = card
-        rank.is_rank = true
-        suit.is_suit = true
-    end
-    SMODS.create_mod_badges(rank, badges)
-    SMODS.create_mod_badges(suit, badges)
-end
+table.insert(badges, CardPronouns.get_badge(card))
 '''
